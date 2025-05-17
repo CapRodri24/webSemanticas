@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle de Noticia</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      h1 {
+        color: #2c3e50;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+      }
+      .news-detail {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+      .detail-item {
+        margin-bottom: 10px;
+      }
+      .detail-label {
+        font-weight: bold;
+        color: #7f8c8d;
+        display: inline-block;
+        width: 150px;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #3498db;
+        text-decoration: none;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="{{ url_for('search') }}" class="back-link"
+        >← Volver a la búsqueda</a
+      >
+
+      <div class="news-detail">
+        <h1>{{ noticia.get('Título', 'Título no disponible') }}</h1>
+
+        <div class="detail-item">
+          <span class="detail-label">Autor:</span>
+          {{ noticia.get('Autor', 'No disponible') }}
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Fecha:</span>
+          {{ noticia.get('Fecha_publicación', 'No disponible') }}
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Temática:</span>
+          {{ noticia.get('Temática', 'No disponible') }}
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Ubicación:</span>
+          {{ noticia.get('Ubicación', 'No disponible') }}
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Idioma:</span>
+          {{ noticia.get('Idioma', 'No disponible') }}
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Estado verificación:</span>
+          {{ noticia.get('Estado', 'No verificada') }}
+        </div>
+
+        {% if 'ContenidoTexto' in noticia %}
+        <div class="detail-item">
+          <h3>Contenido:</h3>
+          <p>{{ noticia['ContenidoTexto'] }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
