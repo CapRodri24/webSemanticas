@@ -46,15 +46,24 @@
       .results {
         margin-top: 20px;
       }
-      .news-item {
+      .section-title {
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 5px;
+        margin-top: 30px;
+        color: #2c3e50;
+      }
+      .news-item,
+      .dbpedia-item {
         border-bottom: 1px solid #eee;
         padding: 15px 0;
       }
-      .news-item h3 {
+      .news-item h3,
+      .dbpedia-item h3 {
         margin-top: 0;
         color: #2c3e50;
       }
-      .news-meta {
+      .news-meta,
+      .dbpedia-meta {
         font-size: 0.9em;
         color: #7f8c8d;
       }
@@ -80,6 +89,21 @@
       a:hover {
         text-decoration: underline;
       }
+      .thumbnail {
+        max-width: 100px;
+        max-height: 100px;
+        float: left;
+        margin-right: 15px;
+      }
+      .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      .no-results {
+        color: #7f8c8d;
+        font-style: italic;
+      }
     </style>
   </head>
   <body>
@@ -91,7 +115,7 @@
           <input
             type="text"
             name="keyword"
-            placeholder="Buscar noticias..."
+            placeholder="Buscar noticias o conceptos..."
             value="{{ keyword }}"
           />
           <button type="submit">Buscar</button>
@@ -99,11 +123,13 @@
       </div>
 
       <div class="results">
-        {% if keyword and not results %}
-        <p>No se encontraron noticias para "{{ keyword }}"</p>
-        {% elif results %}
-        <h2>Resultados para "{{ keyword }}"</h2>
-        {% for item in results %}
+        {% if keyword and not local_results and not dbpedia_results %}
+        <p class="no-results">
+          No se encontraron resultados para "{{ keyword }}"
+        </p>
+        {% endif %} {% if local_results %}
+        <h2 class="section-title">Noticias en nuestra base de datos</h2>
+        {% for item in local_results %}
         <div class="news-item">
           <h3>
             <a href="{{ url_for('detalle_noticia', uri=item.uri) }}"
@@ -120,6 +146,20 @@
               {{ item.verificacion }}
             </span>
           </div>
+        </div>
+        {% endfor %} {% endif %} {% if dbpedia_results %}
+        <h2 class="section-title">Información relacionada en DBpedia</h2>
+        {% for item in dbpedia_results %}
+        <div class="dbpedia-item clearfix">
+          {% if item.thumbnail %}
+          <img src="{{ item.thumbnail }}" alt="Miniatura" class="thumbnail" />
+          {% endif %}
+          <h3>
+            <a href="{{ url_for('detalle_noticia', uri=item.uri) }}"
+              >{{ item.label }}</a
+            >
+          </h3>
+          <p>{{ item.abstract }}</p>
         </div>
         {% endfor %} {% endif %}
       </div>

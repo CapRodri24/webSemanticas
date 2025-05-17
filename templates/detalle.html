@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Detalle de Noticia</title>
+    <title>
+      Detalle de {% if is_dbpedia %}Concepto{% else %}Noticia{% endif %}
+    </title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -21,7 +23,7 @@
         border-bottom: 2px solid #eee;
         padding-bottom: 10px;
       }
-      .news-detail {
+      .detail-container {
         background: #f9f9f9;
         padding: 20px;
         border-radius: 5px;
@@ -45,6 +47,31 @@
       .back-link:hover {
         text-decoration: underline;
       }
+      .thumbnail {
+        max-width: 200px;
+        max-height: 200px;
+        float: right;
+        margin-left: 20px;
+        margin-bottom: 20px;
+      }
+      .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+      .wikipedia-link {
+        display: inline-block;
+        padding: 8px 15px;
+        background: #f8f9fa;
+        color: #000;
+        border: 1px solid #a2a9b1;
+        border-radius: 4px;
+        text-decoration: none;
+        margin-top: 10px;
+      }
+      .wikipedia-link:hover {
+        background: #eaecf0;
+      }
     </style>
   </head>
   <body>
@@ -53,9 +80,38 @@
         >← Volver a la búsqueda</a
       >
 
-      <div class="news-detail">
-        <h1>{{ noticia.get('Título', 'Título no disponible') }}</h1>
+      <div class="detail-container clearfix">
+        {% if is_dbpedia and noticia.get('thumbnail') %}
+        <img src="{{ noticia.thumbnail }}" alt="Imagen" class="thumbnail" />
+        {% endif %}
 
+        <h1>
+          {{ noticia.get('label', noticia.get('Título', 'Título no disponible'))
+          }}
+        </h1>
+
+        {% if is_dbpedia %} {% if noticia.get('abstract') %}
+        <div class="detail-item">
+          <p>{{ noticia.abstract }}</p>
+        </div>
+        {% endif %} {% for key, value in noticia.items() %} {% if key not in
+        ['label', 'abstract', 'thumbnail', 'wikipedia_page', 'depiction',
+        'isPrimaryTopicOf'] %}
+        <div class="detail-item">
+          <span class="detail-label">{{ key }}:</span>
+          {% if value.startswith('http://') or value.startswith('https://') %}
+          <a href="{{ value }}" target="_blank">{{ value }}</a>
+          {% else %} {{ value }} {% endif %}
+        </div>
+        {% endif %} {% endfor %} {% if noticia.get('wikipedia_page') %}
+        <a
+          href="{{ noticia.wikipedia_page }}"
+          class="wikipedia-link"
+          target="_blank"
+        >
+          Ver en Wikipedia
+        </a>
+        {% endif %} {% else %}
         <div class="detail-item">
           <span class="detail-label">Autor:</span>
           {{ noticia.get('Autor', 'No disponible') }}
@@ -91,7 +147,7 @@
           <h3>Contenido:</h3>
           <p>{{ noticia['ContenidoTexto'] }}</p>
         </div>
-        {% endif %}
+        {% endif %} {% endif %}
       </div>
     </div>
   </body>
