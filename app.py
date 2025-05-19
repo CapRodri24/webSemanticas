@@ -29,15 +29,18 @@ def search():
             query = """
             PREFIX untitled-ontology-3: <http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#>
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
             
             SELECT DISTINCT ?noticia ?titulo ?fecha ?tematica ?autor ?estadoVerificacion
             WHERE {
-                ?noticia rdf:type untitled-ontology-3:Noticia ;
-                         untitled-ontology-3:Título ?titulo ;
-                         untitled-ontology-3:Fecha_publicación ?fecha ;
-                         untitled-ontology-3:Temática ?tematica ;
-                         untitled-ontology-3:Autor ?autor .
+                ?noticia rdf:type ?tipoNoticia .
+                ?tipoNoticia rdfs:subClassOf+ untitled-ontology-3:Noticia .
+
+                ?noticia untitled-ontology-3:Título ?titulo ;  
+                        untitled-ontology-3:Fecha_publicación ?fecha ;
+                        untitled-ontology-3:Temática ?tematica ;
+                        untitled-ontology-3:Autor ?autor .
                 
                 # Búsqueda en múltiples campos
                 FILTER (
