@@ -32,15 +32,16 @@ def search():
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
             
-            SELECT DISTINCT ?noticia ?titulo ?fecha ?tematica ?autor ?estadoVerificacion
+            SELECT DISTINCT ?noticia ?titulo ?fecha ?tematica ?autor ?estadoVerificacion ?enlaceDBpedia
             WHERE {
                 ?noticia rdf:type ?tipoNoticia .
                 ?tipoNoticia rdfs:subClassOf+ untitled-ontology-3:Noticia .
 
-                ?noticia untitled-ontology-3:Título ?titulo ;  
-                        untitled-ontology-3:Fecha_publicación ?fecha ;
-                        untitled-ontology-3:Temática ?tematica ;
-                        untitled-ontology-3:Autor ?autor .
+                OPTIONAL { ?noticia untitled-ontology-3:Título ?titulo . }
+                OPTIONAL { ?noticia untitled-ontology-3:Fecha_publicación ?fecha . }
+                OPTIONAL { ?noticia untitled-ontology-3:Temática ?tematica . }
+                OPTIONAL { ?noticia untitled-ontology-3:Autor ?autor . }
+                OPTIONAL { ?noticia untitled-ontology-3:EnlaceDBpedia ?enlaceDBpedia . }
                 
                 # Búsqueda en múltiples campos
                 FILTER (

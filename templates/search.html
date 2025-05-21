@@ -1,128 +1,57 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buscador de Noticias</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        padding: 20px;
-        color: #333;
-      }
-      .container {
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-      h1 {
-        color: #2c3e50;
-        text-align: center;
-      }
-      .search-form {
-        background: #f9f9f9;
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-      input[type="text"] {
-        width: 70%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-      }
-      button {
-        padding: 10px 15px;
-        background: #3498db;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      button:hover {
-        background: #2980b9;
-      }
-      .results {
-        margin-top: 20px;
-      }
-      .news-item {
-        border-bottom: 1px solid #eee;
-        padding: 15px 0;
-      }
-      .news-item h3 {
-        margin-top: 0;
-        color: #2c3e50;
-      }
-      .news-meta {
-        font-size: 0.9em;
-        color: #7f8c8d;
-      }
-      .verification {
-        display: inline-block;
-        padding: 3px 8px;
-        border-radius: 3px;
-        font-size: 0.8em;
-        margin-left: 10px;
-      }
-      .verified {
-        background: #2ecc71;
-        color: white;
-      }
-      .unverified {
-        background: #e74c3c;
-        color: white;
-      }
-      a {
-        color: #3498db;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Buscador de Noticias</h1>
+{% extends "base.html" %}
 
-      <div class="search-form">
-        <form method="POST">
+{% block title %}Buscador de Noticias{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div>
+      <h1 class="text-center mb-4">Buscador de Noticias</h1>
+
+      <div class="search-form mb-3" style="text-align:center;">
+        <form method="POST" class="d-flex justify-content-center gap-2">
           <input
             type="text"
             name="keyword"
             placeholder="Buscar noticias..."
             value="{{ keyword }}"
+            class="form-control"
+            style="max-width: 400px;"
           />
-          <button type="submit">Buscar</button>
+          <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
       </div>
 
       <div class="results">
         {% if keyword and not results %}
-        <p>No se encontraron noticias para "{{ keyword }}"</p>
+          <p>No se encontraron noticias para "{{ keyword }}"</p>
         {% elif results %}
-        <h2>Resultados para "{{ keyword }}"</h2>
-        {% for item in results %}
-        <div class="news-item">
-          <h3>
-            <a href="{{ url_for('detalle_noticia', uri=item.uri) }}"
-              >{{ item.titulo }}</a
-            >
-          </h3>
-          <div class="news-meta">
-            <span>Publicado: {{ item.fecha }}</span> |
-            <span>Tema: {{ item.tematica }}</span> |
-            <span>Autor: {{ item.autor }}</span>
-            <span
-              class="verification {% if item.verificacion != 'No verificada' %}verified{% else %}unverified{% endif %}"
-            >
-              {{ item.verificacion }}
-            </span>
-          </div>
-        </div>
-        {% endfor %} {% endif %}
+          <h2>Resultados para "{{ keyword }}"</h2>
+          {% for item in results %}
+            <div class="news-item mb-3 p-3 border rounded" style="background-color: #1e1e1e;">
+              <h3>
+                <a href="{{ url_for('detalle_noticia', uri=item.uri) }}" class="text-info">
+                  {{ item.titulo or "Sin título" }}
+                </a>
+              </h3>
+              <div class="news-meta">
+                📅 {{ item.fecha or "Fecha desconocida" }} |
+                📚 {{ item.tematica or "Temática no especificada" }} |
+                ✍️ {{ item.autor or "Autor desconocido" }}
+                <span
+                  class="verification {% if item.verificacion != 'No verificada' %}verified{% else %}unverified{% endif %}">
+                  {{ item.verificacion }}
+                </span>
+              </div>
+
+              {% if item.enlaceDBpedia %}
+                <div class="dbpedia-link">
+                  🔗 <a href="{{ item.enlaceDBpedia }}" target="_blank" class="text-info">Ver en DBpedia</a>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
-  </body>
-</html>
+  </div>
+{% endblock %}

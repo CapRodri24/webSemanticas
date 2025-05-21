@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3/"
-     xml:base="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3/"
+<rdf:RDF xmlns="urn:absolute:3/"
+     xml:base="urn:absolute:3/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
@@ -523,6 +523,15 @@
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Enfoque_político">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#EnlaceDBpedia -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#EnlaceDBpedia">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Noticia"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
     </owl:DatatypeProperty>
     
 
@@ -1626,7 +1635,7 @@
         <untitled-ontology-3:Especialización>Desinformación en redes sociales</untitled-ontology-3:Especialización>
         <untitled-ontology-3:Experiencia rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</untitled-ontology-3:Experiencia>
         <untitled-ontology-3:Reconocimiento>Certificado IFCN</untitled-ontology-3:Reconocimiento>
-        <untitled-ontology-3:RegistroOficial rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</untitled-ontology-3:RegistroOficial>
+        <untitled-ontology-3:Registro_oficial rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</untitled-ontology-3:Registro_oficial>
     </owl:NamedIndividual>
     
 
@@ -1640,11 +1649,209 @@
         <untitled-ontology-3:Accesibilidad>Mixta</untitled-ontology-3:Accesibilidad>
         <untitled-ontology-3:ActualizaciónHerramienta rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-03-15T00:00:00</untitled-ontology-3:ActualizaciónHerramienta>
         <untitled-ontology-3:IdiomasSoportados>Español</untitled-ontology-3:IdiomasSoportados>
-        <untitled-ontology-3:NivelEfectividad rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">75</untitled-ontology-3:NivelEfectividad>
+        <untitled-ontology-3:NivelEfectividad rdf:datatype="http://www.w3.org/2001/XMLSchema#int">75</untitled-ontology-3:NivelEfectividad>
         <untitled-ontology-3:Plataforma>App móvil</untitled-ontology-3:Plataforma>
         <untitled-ontology-3:Plataforma>Web</untitled-ontology-3:Plataforma>
         <untitled-ontology-3:TipoHerramienta>Semiautomática</untitled-ontology-3:TipoHerramienta>
         <untitled-ontology-3:latenciaProcesamientoPDA rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.5</untitled-ontology-3:latenciaProcesamientoPDA>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Achille Fould y multiples autores</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Amok_(novella)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>Lenguas altogermánicas</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Amok (libro)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Primera República de Austria</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Carlos Ruiz Zafón</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/The_Shadow_of_the_Wind</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>La sombra del viento</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>España</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo003 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Roberto Bolaño</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Amulet_(novel)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Amuleto (novela)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Estación España</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo004 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo004">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Roberto Bolaño</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Amulet_(novel)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Amuleto (novela)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>España</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo005 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo005">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>José Rizal</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/El_filibusterismo</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español en Filipinas</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>El filibusterismo</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Filipinas</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo006 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo006">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Juan Carlos Onetti</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/El_pozo_(novel)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>El pozo (novela)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Uruguay</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo007 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo007">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Paulo Coelho</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Eleven_Minutes</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>portugués</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Once minutos</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Brasil (Costa Rica)</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo008 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo008">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Paulo Coelho</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Eleven_Minutes</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>portugués</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Once minutos</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Brasil</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo009 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo009">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Robert J. Sawyer</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Calculating_God</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>El cálculo de Dios</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Malaui</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo010 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo010">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Robert J. Sawyer</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Calculating_God</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>El cálculo de Dios</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Canadá</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo011 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo011">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Christopher Paolini</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Eldest</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Eldest</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Estados Unidos</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo012 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo012">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Franz Kafka</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/The_Metamorphosis</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>Lenguas altogermánicas</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Idioma>alemán</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>La metamorfosis</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Imperio austrohúngaro</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo014 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo014">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Gabriel García Márquez</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Memories_of_My_Melancholy_Whores</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Memoria de mis putas tristes</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Colombia</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo015 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo015">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Luca Pacioli</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Summa_de_arithmetica</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>italiano</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Summa de arithmetica</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>República de Venecia</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo016 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo016">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Artículo"/>
+        <untitled-ontology-3:Autor>Ludwig Wittgenstein</untitled-ontology-3:Autor>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/On_Certainty</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>Lenguas altogermánicas</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Idioma>alemán</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Título>Sobre la certeza</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Inglaterra</untitled-ontology-3:Ubicación>
     </owl:NamedIndividual>
     
 
@@ -1761,7 +1968,6 @@
         <untitled-ontology-3:Tono>Objetivo</untitled-ontology-3:Tono>
         <untitled-ontology-3:Título>Alarma por brote de dengue en el trópico de Cochabamba</untitled-ontology-3:Título>
         <untitled-ontology-3:Ubicación>Trópico de Cochabamba, Bolivia</untitled-ontology-3:Ubicación>
-        <untitled-ontology-3:Uso_citas rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</untitled-ontology-3:Uso_citas>
     </owl:NamedIndividual>
     
 
@@ -1841,6 +2047,359 @@
         <untitled-ontology-3:NúmeroRegistros rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1500</untitled-ontology-3:NúmeroRegistros>
         <untitled-ontology-3:Plataforma>Web</untitled-ontology-3:Plataforma>
         <untitled-ontology-3:TipoHerramienta>Semiautomática</untitled-ontology-3:TipoHerramienta>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna01 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna01">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">56</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Mother_Earth_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Anarchism</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Mother Earth (revista)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Estados Unidos</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna02 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna02">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Monitor_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>montenegrino</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>News_magazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Monitor (Perú)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Montenegro</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna03 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna03">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">866</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/QS_World_University_Rankings</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Higher_education</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Clasificación mundial de universidades QS</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Reino Unido de Gran Bretaña e Irlanda</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna04 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna04">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">866</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/QS_World_University_Rankings</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Higher_education</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Clasificación mundial de universidades QS</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Reino Unido</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna05 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna05">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">866</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/QS_World_University_Rankings</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Higher_education</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Clasificación mundial de universidades QS</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Gran Bretaña</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna06 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna06">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">31</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Pucchigumi</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>japonés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Children&apos;s_anime_and_manga</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Pucchigumi</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Japón</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna07 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna07">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">180</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/American_Scientist</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Science</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>American Scientist</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Estados Unidos</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna08 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna08">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Caras_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Idioma>portugués</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Women&apos;s_magazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Caras (revista argentina)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Uruguay</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna09 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna09">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Caras_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Idioma>portugués</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Women&apos;s_magazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Caras (revista argentina)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Brasil</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna10 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna10">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Caras_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Idioma>portugués</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Women&apos;s_magazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Caras (revista argentina)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Brasil (Costa Rica)</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna11 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna11">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Monthly_Birz</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>japonés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Seinen_manga</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Comic Birz</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Japón</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna12 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna12">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Monthly_Comic_Rex</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>japonés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Shōnen_manga</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Comic Rex</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Japón</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna13 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna13">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">76</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Dengeki_Maoh</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>japonés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Light_novel</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Dengeki Maoh</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Japón</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna14 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna14">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">469</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Retro_Gamer</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Video_game_journalism</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Retro Gamer</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Reino Unido de Gran Bretaña e Irlanda</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna15 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna15">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">21</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Vice_Versa_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Periodical</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Vice Versa (revista)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Estados Unidos</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna16 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna16">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">11</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Kvant_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>ruso</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Mathematics</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Temática>Physics</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Kvant (revista)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Rusia</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna17 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna17">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Columna"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">92</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Robb_Report</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Lifestyle_(sociology)</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Robb Report</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Estados Unidos</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica03 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica03">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Cambio_16</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">24</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Cambio_16</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>News_magazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Cambio 16</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>España</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica04 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica04">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">19</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/El_Temps</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>catalán</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Newsmagazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>El Temps</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>España</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica05 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica05">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Metal_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Heavy_metal_music</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Metal (revista)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Argentina</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica06 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica06">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">13</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Billiken_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Children&apos;s_literature</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Billiken</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Argentina</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica07 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica07">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1935</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Blender_(magazine)</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>inglés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Music_magazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Blender (revista)</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>India</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica08 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica08">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Boletín_Oficial_de_la_República_Argentina</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Government_gazette</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Ubicación>Argentina</untitled-ontology-3:Ubicación>
+        <untitled-ontology-3:Ubicación>Boletín Oficial de la República Argentina</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica09 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica09">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">135</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Ribon</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>japonés</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Shōjo_manga</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Ribon</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>Japón</untitled-ontology-3:Ubicación>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica10 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Cronica10">
+        <rdf:type rdf:resource="http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#Crónica"/>
+        <untitled-ontology-3:Cantidad_difusión rdf:datatype="http://www.w3.org/2001/XMLSchema#int">34</untitled-ontology-3:Cantidad_difusión>
+        <untitled-ontology-3:EnlaceDBpedia rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://dbpedia.org/resource/Vanidades</untitled-ontology-3:EnlaceDBpedia>
+        <untitled-ontology-3:Idioma>español</untitled-ontology-3:Idioma>
+        <untitled-ontology-3:Temática>Women&apos;s_magazine</untitled-ontology-3:Temática>
+        <untitled-ontology-3:Título>Vanidades</untitled-ontology-3:Título>
+        <untitled-ontology-3:Ubicación>México</untitled-ontology-3:Ubicación>
     </owl:NamedIndividual>
     
 
