@@ -1,57 +1,242 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}{{
+translations['title'][current_lang] }}{% endblock %} {% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <h1 class="text-center mb-4">
+        {{ translations['title'][current_lang] }}
+      </h1>
 
-{% block title %}Buscador de Noticias{% endblock %}
-
-{% block content %}
-  <div class="d-flex justify-content-center align-items-center vh-100">
-    <div>
-      <h1 class="text-center mb-4">Buscador de Noticias</h1>
-
-      <div class="search-form mb-3" style="text-align:center;">
-        <form method="POST" class="d-flex justify-content-center gap-2">
-          <input
-            type="text"
-            name="keyword"
-            placeholder="Buscar noticias..."
-            value="{{ keyword }}"
-            class="form-control"
-            style="max-width: 400px;"
-          />
-          <button type="submit" class="btn btn-primary">Buscar</button>
+      <div class="search-form mb-5">
+        <form method="POST" class="row g-2">
+          <div class="col-md-8">
+            <input
+              type="text"
+              name="keyword"
+              placeholder="{{ translations['search_placeholder'][current_lang] }}"
+              value="{{ keyword }}"
+              class="form-control"
+            />
+            <input type="hidden" name="lang" value="{{ current_lang }}" />
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="bi bi-search"></i> {{
+              translations['search_button'][current_lang] }}
+            </button>
+          </div>
         </form>
       </div>
 
-      <div class="results">
-        {% if keyword and not results %}
-          <p>No se encontraron noticias para "{{ keyword }}"</p>
-        {% elif results %}
-          <h2>Resultados para "{{ keyword }}"</h2>
-          {% for item in results %}
-            <div class="news-item mb-3 p-3 border rounded" style="background-color: #1e1e1e;">
-              <h3>
-                <a href="{{ url_for('detalle_noticia', uri=item.uri) }}" class="text-info">
-                  {{ item.titulo or "Sin título" }}
-                </a>
-              </h3>
-              <div class="news-meta">
-                📅 {{ item.fecha or "Fecha desconocida" }} |
-                📚 {{ item.tematica or "Temática no especificada" }} |
-                ✍️ {{ item.autor or "Autor desconocido" }}
-                <span
-                  class="verification {% if item.verificacion != 'No verificada' %}verified{% else %}unverified{% endif %}">
-                  {{ item.verificacion }}
-                </span>
-              </div>
-
-              {% if item.enlaceDBpedia %}
-                <div class="dbpedia-link">
-                  🔗 <a href="{{ item.enlaceDBpedia }}" target="_blank" class="text-info">Ver en DBpedia</a>
+      {% if keyword %}
+      <!-- Resultados Locales -->
+      {% if local_results %}
+      <div class="result-section">
+        <h3 class="section-title">
+          <i class="bi bi-house"></i> {{
+          translations['local_results'][current_lang] }}
+        </h3>
+        <div class="row row-cols-1 g-4">
+          {% for item in local_results %}
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a
+                    href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang) }}"
+                  >
+                    {{ item.titulo }}
+                  </a>
+                  {% if item.original_lang and item.original_lang !=
+                  current_lang %}
+                  <span class="badge bg-info translation-badge">
+                    {{ translations['translated_from'][current_lang] }} {{
+                    item.original_lang }}
+                  </span>
+                  {% endif %}
+                </h4>
+                <div class="card-text news-meta mb-2">
+                  <span class="me-3">
+                    <i class="bi bi-calendar"></i>
+                    <strong>{{ translations['date'][current_lang] }}:</strong>
+                    {{ item.fecha }}
+                  </span>
+                  <span class="me-3">
+                    <i class="bi bi-tag"></i>
+                    <strong>{{ translations['topic'][current_lang] }}:</strong>
+                    {{ item.tematica }}
+                  </span>
+                  <span>
+                    <i class="bi bi-person"></i>
+                    <strong>{{ translations['author'][current_lang] }}:</strong>
+                    {{ item.autor }}
+                  </span>
                 </div>
-              {% endif %}
+                <div class="d-flex justify-content-between align-items-center">
+                  <span
+                    class="verification {% if item.verificacion != translations['not_verified'][current_lang] %}verified{% else %}unverified{% endif %}"
+                  >
+                    <i
+                      class="bi bi-{% if item.verificacion != translations['not_verified'][current_lang] %}check-circle{% else %}exclamation-circle{% endif %}"
+                    ></i>
+                    <strong
+                      >{{ translations['verification'][current_lang] }}:</strong
+                    >
+                    {{ item.verificacion }}
+                  </span>
+                  {% if item.enlaceDBpedia %}
+                  <a
+                    href="{{ item.enlaceDBpedia }}"
+                    target="_blank"
+                    class="btn btn-sm btn-outline-primary"
+                  >
+                    <i class="bi bi-box-arrow-up-right"></i> {{
+                    translations['view_on_dbpedia'][current_lang] }}
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="card-footer bg-transparent">
+                <a
+                  href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang) }}"
+                  class="btn btn-sm btn-outline-secondary"
+                >
+                  <i class="bi bi-info-circle"></i> {{
+                  translations['view_details'][current_lang] }}
+                </a>
+              </div>
             </div>
+          </div>
           {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Resultados Inferidos -->
+      {% if inferred_results %}
+      <div class="result-section">
+        <h3 class="section-title">
+          <i class="bi bi-lightbulb"></i> {{
+          translations['inferred_results'][current_lang] }}
+        </h3>
+        <div class="row row-cols-1 g-4">
+          {% for item in inferred_results %}
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.titulo }}</h5>
+                <div class="card-text">
+                  <h6>Clases inferidas:</h6>
+                  <ul class="list-group list-group-flush mb-3">
+                    {% for class in item.inferred.classes %}
+                    <li class="list-group-item">{{ class }}</li>
+                    {% endfor %}
+                  </ul>
+
+                  <h6>Propiedades posibles:</h6>
+                  <ul class="list-group list-group-flush mb-3">
+                    {% for prop in item.inferred.possible_properties %}
+                    <li class="list-group-item">{{ prop }}</li>
+                    {% endfor %}
+                  </ul>
+
+                  <h6>Propiedades existentes:</h6>
+                  <div class="table-responsive">
+                    <table class="table table-custom table-sm">
+                      <thead>
+                        <tr>
+                          <th>Propiedad</th>
+                          <th>Valor</th>
+                          <th>Tipo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for prop in item.inferred.existing_properties %}
+                        <tr>
+                          <td>{{ prop.property }}</td>
+                          <td>
+                            {% if prop.type == 'resource' and
+                            prop.value.startswith('http') %}
+                            <a href="{{ prop.value }}" target="_blank"
+                              >{{ prop.value }}</a
+                            >
+                            {% else %} {{ prop.value }} {% endif %}
+                          </td>
+                          <td>{{ prop.type }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Resultados de DBpedia -->
+      <div class="result-section">
+        <h3 class="section-title">
+          <i class="bi bi-globe"></i> {{
+          translations['dbpedia_results'][current_lang] }}
+        </h3>
+        {% if dbpedia_results %}
+        <div class="row row-cols-1 g-4">
+          {% for item in dbpedia_results %}
+          <div class="col">
+            <div class="card h-100">
+              {% if item.thumbnail %}
+              <img
+                src="{{ item.thumbnail.value }}"
+                class="card-img-top"
+                alt="Thumbnail"
+              />
+              {% endif %}
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="{{ item.resource.value }}" target="_blank">
+                    {{ item.label.value }}
+                  </a>
+                </h4>
+                <p class="card-text">{{ item.abstract.value }}</p>
+                <div class="card-text text-muted-custom">
+                  {% if item.date %}
+                  <span class="me-3">
+                    <i class="bi bi-calendar"></i> {{ item.date.value }}
+                  </span>
+                  {% endif %} {% if item.author %}
+                  <span>
+                    <i class="bi bi-person"></i> {{ item.author.value }}
+                  </span>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="card-footer bg-transparent">
+                <a
+                  href="{{ item.resource.value }}"
+                  target="_blank"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  <i class="bi bi-box-arrow-up-right"></i> {{
+                  translations['view_on_dbpedia'][current_lang] }}
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+          <i class="bi bi-exclamation-triangle"></i> {{
+          translations['no_dbpedida_results'][current_lang] }}
+        </div>
         {% endif %}
       </div>
+      {% endif %}
     </div>
   </div>
+</div>
 {% endblock %}
