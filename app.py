@@ -16,6 +16,10 @@ ONTOLOGY_NS = Namespace("http://www.semanticweb.org/cabez/ontologies/2025/2/unti
 DBPEDIA_NS = Namespace("http://dbpedia.org/resource/")
 DBPEDIA_ONTOLOGY_NS = Namespace("http://dbpedia.org/ontology/")
 
+# Configurar SPARQL endpoint de DBpedia
+sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+sparql.setReturnFormat(JSON)
+
 # Cargar la ontología
 g = Graph()
 try:
@@ -140,38 +144,13 @@ TRANSLATIONS = {
         'es': 'No se encontraron resultados en DBpedia',
         'en': 'No results found in DBpedia',
         'pt': 'Nenhum resultado encontrado no DBpedia'
-    },
-    'possible_properties': {
-        'es': 'Propiedades posibles',
-        'en': 'Possible properties',
-        'pt': 'Propriedades possíveis'
-    },
-    'existing_properties': {
-        'es': 'Propiedades existentes',
-        'en': 'Existing properties',
-        'pt': 'Propriedades existentes'
-    },
-    'inferred_classes': {
-        'es': 'Clases inferidas',
-        'en': 'Inferred classes',
-        'pt': 'Classes inferidas'
-    },
-    'type': {
-        'es': 'Tipo',
-        'en': 'Type',
-        'pt': 'Tipo'
-    },
-    'value': {
-        'es': 'Valor',
-        'en': 'Value',
-        'pt': 'Valor'
     }
 }
 
 def translate_text(text, src_lang, dest_lang):
     """Traduce texto entre idiomas usando Google Translate"""
     try:
-        if src_lang == dest_lang or not text or text.strip() == "?":
+        if src_lang == dest_lang or not text:
             return text
         translation = translator.translate(text, src=src_lang, dest=dest_lang)
         return translation.text
@@ -180,122 +159,70 @@ def translate_text(text, src_lang, dest_lang):
         return text
 
 def query_dbpedia(search_term, lang='en'):
-    """Consulta DBpedia para obtener noticias relacionadas con manejo robusto de errores"""
-    try:
-        sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-        sparql.setTimeout(30)  # Aumentar tiempo de espera
+    """Consulta DBpedia para información relacionada con la palabra clave"""
+    query = """
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX dbo: <http://dbpedia.org/ontology/>
+    
+    SELECT DISTINCT ?resource ?label ?abstract WHERE {
+        ?resource rdfs:label ?label .
+        FILTER(LANG(?label) = "%s")
+        FILTER(CONTAINS(LCASE(STR(?label)), LCASE("%s")))
         
-        # Consulta más flexible que busca en múltiples campos y tipos de recursos
-        query = """
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        PREFIX dbo: <http://dbpedia.org/ontology/>
-        PREFIX dbp: <http://dbpedia.org/property/>
-        
-        SELECT DISTINCT ?resource ?label ?abstract ?date ?author ?thumbnail
-        WHERE {
-            {
-                ?resource a dbo:News ;
-                          rdfs:label ?label ;
-                          dbo:abstract ?abstract .
-                FILTER (LANG(?label) = "%s" && LANG(?abstract) = "%s")
-                FILTER (CONTAINS(LCASE(?label), LCASE("%s")))
-            }
-            UNION
-            {
-                ?resource a dbo:Event ;
-                          rdfs:label ?label ;
-                          dbo:abstract ?abstract .
-                FILTER (LANG(?label) = "%s" && LANG(?abstract) = "%s")
-                FILTER (CONTAINS(LCASE(?label), LCASE("%s")))
-            }
-            
-            OPTIONAL { ?resource dbp:date ?date . }
-            OPTIONAL { ?resource dbp:author ?author . }
-            OPTIONAL { ?resource dbo:thumbnail ?thumbnail . }
+        OPTIONAL { 
+            ?resource dbo:abstract ?abstract .
+            FILTER(LANG(?abstract) = "%s") 
         }
-        LIMIT 10
-        """ % (lang, lang, search_term, lang, lang, search_term)
         
+        FILTER(STRSTARTS(STR(?resource), "http://dbpedia.org/resource/"))
+    }
+    LIMIT 5
+    """ % (lang, search_term, lang)
+    
+    try:
         sparql.setQuery(query)
-        sparql.setReturnFormat(JSON)
         results = sparql.query().convert()
         
-        # Procesar resultados
-        formatted_results = []
+        dbpedia_results = []
         for result in results["results"]["bindings"]:
-            formatted = {
-                "resource": result["resource"]["value"],
-                "label": result["label"]["value"],
-                "abstract": result["abstract"]["value"]
-            }
-            
-            if "date" in result:
-                formatted["date"] = result["date"]["value"]
-            if "author" in result:
-                formatted["author"] = result["author"]["value"]
-            if "thumbnail" in result:
-                formatted["thumbnail"] = result["thumbnail"]["value"]
-                
-            formatted_results.append(formatted)
+            dbpedia_results.append({
+                "resource": {
+                    "value": result["resource"]["value"]
+                },
+                "label": {
+                    "value": result["label"]["value"]
+                },
+                "abstract": {
+                    "value": result.get("abstract", {}).get("value", TRANSLATIONS['no_results'][lang])
+                }
+            })
         
-        return formatted_results
-        
+        return dbpedia_results
     except Exception as e:
-        print(f"Error en consulta a DBpedia: {str(e)}")
+        print(f"Error al consultar DBpedia: {e}")
         return []
 
 def infer_properties(subject):
-    """Realiza inferencias sobre un sujeto en la ontología con manejo robusto"""
+    """Realiza inferencias sobre un sujeto en la ontología"""
     inferred = {}
     
-    try:
-        # Obtener todas las clases del sujeto (incluyendo superclases)
-        classes = set()
-        for s, p, o in g.triples((subject, RDF.type, None)):
-            classes.add(o)
-            # Obtener superclases
-            for s2, p2, o2 in g.triples((o, RDFS.subClassOf, None)):
-                classes.add(o2)
-        
-        inferred['classes'] = [str(c).split("#")[-1] for c in classes if "#" in str(c)]
-        
-        # Inferir propiedades basadas en las clases
-        properties = set()
-        for class_uri in classes:
-            for s, p, o in g.triples((class_uri, RDFS.domain, None)):
-                properties.add(p)
-            for s, p, o in g.triples((None, RDFS.domain, class_uri)):
-                properties.add(p)
-        
-        inferred['possible_properties'] = [str(p).split("#")[-1] for p in properties if "#" in str(p)]
-        
-        # Obtener propiedades existentes
-        existing_props = []
-        for s, p, o in g.triples((subject, None, None)):
-            prop_name = str(p).split("#")[-1] if "#" in str(p) else str(p)
-            prop_value = str(o)
-            
-            # Manejar diferentes tipos de valores
-            if isinstance(o, Literal):
-                if o.datatype == XSD.dateTime:
-                    try:
-                        prop_value = o.toPython().strftime("%Y-%m-%d")
-                    except:
-                        prop_value = str(o)
-                else:
-                    prop_value = str(o)
-            
-            existing_props.append({
-                'property': prop_name,
-                'value': prop_value,
-                'type': 'literal' if isinstance(o, Literal) else 'resource'
-            })
-        
-        inferred['existing_properties'] = existing_props
-        
-    except Exception as e:
-        print(f"Error en inferencia de propiedades: {str(e)}")
-        inferred['error'] = str(e)
+    # Obtener todas las clases del sujeto (incluyendo superclases)
+    classes = set()
+    for s, p, o in g.triples((subject, RDF.type, None)):
+        classes.add(o)
+        # Obtener superclases
+        for s2, p2, o2 in g.triples((o, RDFS.subClassOf, None)):
+            classes.add(o2)
+    
+    inferred['classes'] = [str(c) for c in classes]
+    
+    # Inferir propiedades basadas en las clases
+    properties = set()
+    for class_uri in classes:
+        for s, p, o in g.triples((class_uri, RDFS.domain, None)):
+            properties.add(p)
+    
+    inferred['possible_properties'] = [str(p) for p in properties]
     
     return inferred
 
@@ -333,9 +260,9 @@ def search():
                 OPTIONAL { ?noticia untitled-ontology-3:EnlaceDBpedia ?enlaceDBpedia . }
                 
                 FILTER (
-                    CONTAINS(LCASE(STR(?titulo)), LCASE("%s")) || 
-                    CONTAINS(LCASE(STR(?tematica)), LCASE("%s")) || 
-                    CONTAINS(LCASE(STR(?autor)), LCASE("%s"))
+                    CONTAINS(LCASE(STR(?titulo)), "%s") || 
+                    CONTAINS(LCASE(STR(?tematica)), "%s") || 
+                    CONTAINS(LCASE(STR(?autor)), "%s")
                 )
                 
                 OPTIONAL {
@@ -352,45 +279,38 @@ def search():
                 
                 for row in query_results:
                     # Formatear la fecha
-                    fecha = row.fecha.toPython().strftime("%Y-%m-%d") if row.fecha and hasattr(row.fecha, 'toPython') else str(row.fecha) if row.fecha else "?"
+                    fecha = row.fecha.toPython().strftime("%Y-%m-%d") if hasattr(row.fecha, 'toPython') else str(row.fecha)
                     
                     # Traducir contenido si es necesario
-                    titulo = translate_text(str(row.titulo), 'es', lang) if row.titulo else "Sin título"
-                    tematica = translate_text(str(row.tematica), 'es', lang) if row.tematica else "?"
-                    autor = translate_text(str(row.autor), 'es', lang) if row.autor else "?"
+                    titulo = translate_text(str(row.titulo), 'es', lang) if row.titulo else ""
+                    tematica = translate_text(str(row.tematica), 'es', lang) if row.tematica else ""
+                    autor = translate_text(str(row.autor), 'es', lang) if row.autor else ""
                     
                     local_results.append({
                         "uri": str(row.noticia),
-                        "titulo": titulo,
-                        "fecha": fecha,
-                        "tematica": tematica,
-                        "autor": autor,
+                        "titulo": titulo or "Sin título",
+                        "fecha": fecha or "?",
+                        "tematica": tematica or "?",
+                        "autor": autor or "?",
                         "verificacion": str(row.estadoVerificacion) if row.estadoVerificacion else TRANSLATIONS['not_verified'][lang],
                         "enlaceDBpedia": str(row.enlaceDBpedia) if row.enlaceDBpedia else None,
                         "original_lang": "es"
                     })
                     
                     # Realizar inferencias
-                    try:
-                        inferred = infer_properties(URIRef(row.noticia))
-                        if inferred:
-                            inferred_results.append({
-                                "uri": str(row.noticia),
-                                "titulo": titulo,
-                                "inferred": inferred
-                            })
-                    except Exception as e:
-                        print(f"Error en inferencia para {row.noticia}: {str(e)}")
+                    inferred = infer_properties(URIRef(row.noticia))
+                    if inferred:
+                        inferred_results.append({
+                            "uri": str(row.noticia),
+                            "titulo": titulo or "Sin título",
+                            "inferred": inferred
+                        })
                 
             except Exception as e:
-                print(f"Error en la consulta SPARQL local: {str(e)}")
+                print(f"Error en la consulta SPARQL local: {e}")
             
-            # Consultar DBpedia con manejo de errores
-            try:
-                dbpedia_results = query_dbpedia(keyword, lang)
-            except Exception as e:
-                print(f"Error al consultar DBpedia: {str(e)}")
-                dbpedia_results = []
+            # Consultar DBpedia
+            dbpedia_results = query_dbpedia(keyword, lang)
     
     return render_template(
         "search.html",
@@ -439,29 +359,16 @@ def detalle_noticia(uri):
             # Manejar diferentes tipos de valores
             if isinstance(row.valor, Literal):
                 if row.valor.datatype == XSD.dateTime:
-                    try:
-                        detalles[prop_name] = row.valor.toPython().strftime("%Y-%m-%d")
-                    except:
-                        detalles[prop_name] = str(row.valor)
+                    detalles[prop_name] = row.valor.toPython().strftime("%Y-%m-%d")
                 else:
                     detalles[prop_name] = str(row.valor)
             else:
                 detalles[prop_name] = str(row.valor)
     except Exception as e:
-        print(f"Error al obtener detalles: {str(e)}")
+        print(f"Error al obtener detalles: {e}")
     
     # Obtener inferencias
-    try:
-        inferred = infer_properties(URIRef(uri_decoded))
-    except Exception as e:
-        print(f"Error en inferencia: {str(e)}")
-        inferred = {}
-    
-    # Traducir los detalles si es necesario
-    if lang != 'es':
-        for key, value in detalles.items():
-            if not value.startswith('http') and not value.replace('-', '').isdigit():
-                detalles[key] = translate_text(value, 'es', lang)
+    inferred = infer_properties(URIRef(uri_decoded))
     
     return render_template(
         "detalle.html",
