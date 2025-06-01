@@ -43,7 +43,7 @@ translations['title'][current_lang] }}{% endblock %} {% block content %}
               <div class="card-body">
                 <h4 class="card-title">
                   <a
-                    href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang) }}"
+                    href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang, keyword=keyword) }}"
                   >
                     {{ item.titulo }}
                   </a>
@@ -98,77 +98,12 @@ translations['title'][current_lang] }}{% endblock %} {% block content %}
               </div>
               <div class="card-footer bg-transparent">
                 <a
-                  href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang) }}"
+                  href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang, keyword=keyword) }}"
                   class="btn btn-sm btn-outline-secondary"
                 >
                   <i class="bi bi-info-circle"></i> {{
                   translations['view_details'][current_lang] }}
                 </a>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-
-      <!-- Resultados Inferidos -->
-      {% if inferred_results %}
-      <div class="result-section">
-        <h3 class="section-title">
-          <i class="bi bi-lightbulb"></i> {{
-          translations['inferred_results'][current_lang] }}
-        </h3>
-        <div class="row row-cols-1 g-4">
-          {% for item in inferred_results %}
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">{{ item.titulo }}</h5>
-                <div class="card-text">
-                  <h6>Clases inferidas:</h6>
-                  <ul class="list-group list-group-flush mb-3">
-                    {% for class in item.inferred.classes %}
-                    <li class="list-group-item">{{ class }}</li>
-                    {% endfor %}
-                  </ul>
-
-                  <h6>Propiedades posibles:</h6>
-                  <ul class="list-group list-group-flush mb-3">
-                    {% for prop in item.inferred.possible_properties %}
-                    <li class="list-group-item">{{ prop }}</li>
-                    {% endfor %}
-                  </ul>
-
-                  <h6>Propiedades existentes:</h6>
-                  <div class="table-responsive">
-                    <table class="table table-custom table-sm">
-                      <thead>
-                        <tr>
-                          <th>Propiedad</th>
-                          <th>Valor</th>
-                          <th>Tipo</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for prop in item.inferred.existing_properties %}
-                        <tr>
-                          <td>{{ prop.property }}</td>
-                          <td>
-                            {% if prop.type == 'resource' and
-                            prop.value.startswith('http') %}
-                            <a href="{{ prop.value }}" target="_blank"
-                              >{{ prop.value }}</a
-                            >
-                            {% else %} {{ prop.value }} {% endif %}
-                          </td>
-                          <td>{{ prop.type }}</td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

@@ -181,7 +181,9 @@
         >
           {% for code, name in languages.items() %}
           <li>
-            <a class="dropdown-item" href="{{ url_for('search', lang=code) }}"
+            <a
+              class="dropdown-item"
+              href="{{ url_for('search', lang=code, keyword=keyword) }}"
               >{{ name }}</a
             >
           </li>
