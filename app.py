@@ -233,90 +233,79 @@ def search():
     
     local_results = []
     dbpedia_results = []
-    inferred_results = []
-    keyword = ""
+    keyword = request.args.get('keyword', '')
     
     if request.method == "POST":
         keyword = request.form.get("keyword", "").strip()
         lang = request.form.get("lang", lang)
-        
-        if keyword:
-            # Consulta SPARQL para resultados locales
-            query = """
-            PREFIX untitled-ontology-3: <http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#>
-            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-            PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-            
-            SELECT DISTINCT ?noticia ?titulo ?fecha ?tematica ?autor ?estadoVerificacion ?enlaceDBpedia
-            WHERE {
-                ?noticia rdf:type ?tipoNoticia .
-                ?tipoNoticia rdfs:subClassOf* untitled-ontology-3:Noticia .
-
-                OPTIONAL { ?noticia untitled-ontology-3:Título ?titulo . }
-                OPTIONAL { ?noticia untitled-ontology-3:Fecha_publicación ?fecha . }
-                OPTIONAL { ?noticia untitled-ontology-3:Temática ?tematica . }
-                OPTIONAL { ?noticia untitled-ontology-3:Autor ?autor . }
-                OPTIONAL { ?noticia untitled-ontology-3:EnlaceDBpedia ?enlaceDBpedia . }
-                
-                FILTER (
-                    CONTAINS(LCASE(STR(?titulo)), "%s") || 
-                    CONTAINS(LCASE(STR(?tematica)), "%s") || 
-                    CONTAINS(LCASE(STR(?autor)), "%s")
-                )
-                
-                OPTIONAL {
-                    ?verificacion untitled-ontology-3:evalua ?noticia ;
-                                  untitled-ontology-3:Estado ?estadoVerificacion .
-                }
-            }
-            ORDER BY DESC(?fecha)
-            """ % (keyword, keyword, keyword)
-            
-            try:
-                query_results = g.query(query)
-                local_results = []
-                
-                for row in query_results:
-                    # Formatear la fecha
-                    fecha = row.fecha.toPython().strftime("%Y-%m-%d") if hasattr(row.fecha, 'toPython') else str(row.fecha)
-                    
-                    # Traducir contenido si es necesario
-                    titulo = translate_text(str(row.titulo), 'es', lang) if row.titulo else ""
-                    tematica = translate_text(str(row.tematica), 'es', lang) if row.tematica else ""
-                    autor = translate_text(str(row.autor), 'es', lang) if row.autor else ""
-                    
-                    local_results.append({
-                        "uri": str(row.noticia),
-                        "titulo": titulo or "Sin título",
-                        "fecha": fecha or "?",
-                        "tematica": tematica or "?",
-                        "autor": autor or "?",
-                        "verificacion": str(row.estadoVerificacion) if row.estadoVerificacion else TRANSLATIONS['not_verified'][lang],
-                        "enlaceDBpedia": str(row.enlaceDBpedia) if row.enlaceDBpedia else None,
-                        "original_lang": "es"
-                    })
-                    
-                    # Realizar inferencias
-                    inferred = infer_properties(URIRef(row.noticia))
-                    if inferred:
-                        inferred_results.append({
-                            "uri": str(row.noticia),
-                            "titulo": titulo or "Sin título",
-                            "inferred": inferred
-                        })
-                
-            except Exception as e:
-                print(f"Error en la consulta SPARQL local: {e}")
-            
-            # Consultar DBpedia
-            dbpedia_results = query_dbpedia(keyword, lang)
     
+    if keyword:
+        # Consulta SPARQL para resultados locales
+        query = """
+        PREFIX untitled-ontology-3: <http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        
+        SELECT DISTINCT ?noticia ?titulo ?fecha ?tematica ?autor ?estadoVerificacion ?enlaceDBpedia
+        WHERE {
+            ?noticia rdf:type ?tipoNoticia .
+            ?tipoNoticia rdfs:subClassOf* untitled-ontology-3:Noticia .
+
+            OPTIONAL { ?noticia untitled-ontology-3:Título ?titulo . }
+            OPTIONAL { ?noticia untitled-ontology-3:Fecha_publicación ?fecha . }
+            OPTIONAL { ?noticia untitled-ontology-3:Temática ?tematica . }
+            OPTIONAL { ?noticia untitled-ontology-3:Autor ?autor . }
+            OPTIONAL { ?noticia untitled-ontology-3:EnlaceDBpedia ?enlaceDBpedia . }
+            
+            FILTER (
+                CONTAINS(LCASE(STR(?titulo)), "%s") || 
+                CONTAINS(LCASE(STR(?tematica)), "%s") || 
+                CONTAINS(LCASE(STR(?autor)), "%s")
+            )
+            
+            OPTIONAL {
+                ?verificacion untitled-ontology-3:evalua ?noticia ;
+                              untitled-ontology-3:Estado ?estadoVerificacion .
+            }
+        }
+        ORDER BY DESC(?fecha)
+        """ % (keyword, keyword, keyword)
+        
+        try:
+            query_results = g.query(query)
+            local_results = []
+            
+            for row in query_results:
+                # Formatear la fecha
+                fecha = row.fecha.toPython().strftime("%Y-%m-%d") if hasattr(row.fecha, 'toPython') else str(row.fecha)
+                
+                # Traducir contenido si es necesario
+                titulo = translate_text(str(row.titulo), 'es', lang) if row.titulo else ""
+                tematica = translate_text(str(row.tematica), 'es', lang) if row.tematica else ""
+                autor = translate_text(str(row.autor), 'es', lang) if row.autor else ""
+                
+                local_results.append({
+                    "uri": str(row.noticia),
+                    "titulo": titulo or "Sin título",
+                    "fecha": fecha or "?",
+                    "tematica": tematica or "?",
+                    "autor": autor or "?",
+                    "verificacion": str(row.estadoVerificacion) if row.estadoVerificacion else TRANSLATIONS['not_verified'][lang],
+                    "enlaceDBpedia": str(row.enlaceDBpedia) if row.enlaceDBpedia else None,
+                    "original_lang": "es"
+                })
+            
+        except Exception as e:
+            print(f"Error en la consulta SPARQL local: {e}")
+        
+        # Consultar DBpedia
+        dbpedia_results = query_dbpedia(keyword, lang)
+
     return render_template(
         "search.html",
         local_results=local_results,
         dbpedia_results=dbpedia_results,
-        inferred_results=inferred_results,
         keyword=keyword,
         languages=LANGUAGES,
         current_lang=lang,
@@ -328,6 +317,7 @@ def search():
 def detalle_noticia(uri):
     lang = request.args.get('lang', 'es')
     dark_mode = request.cookies.get('dark_mode', 'true') == 'true'
+    keyword = request.args.get('keyword', '')
     
     # Decodificar URI (maneja caracteres especiales)
     try:
@@ -367,7 +357,7 @@ def detalle_noticia(uri):
     except Exception as e:
         print(f"Error al obtener detalles: {e}")
     
-    # Obtener inferencias
+    # Obtener inferencias para la página de detalle
     inferred = infer_properties(URIRef(uri_decoded))
     
     return render_template(
@@ -377,7 +367,8 @@ def detalle_noticia(uri):
         translations=TRANSLATIONS,
         languages=LANGUAGES,
         current_lang=lang,
-        dark_mode=dark_mode
+        dark_mode=dark_mode,
+        keyword=keyword
     )
 
 @app.route("/toggle_dark_mode", methods=["POST"])
