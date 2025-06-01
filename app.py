@@ -240,37 +240,68 @@ def search():
         lang = request.form.get("lang", lang)
     
     if keyword:
-        # Consulta SPARQL para resultados locales
-        query = """
+        # Determinar el tipo de búsqueda
+        search_type = "general"
+        search_filters = []
+        
+        # Búsqueda por autor
+        if "autor" in keyword.lower() or "author" in keyword.lower():
+            search_type = "autor"
+            author_name = keyword.replace("autor:", "").replace("author:", "").strip()
+            search_filters.append(f"CONTAINS(LCASE(STR(?autor)), LCASE(\"{author_name}\"))")
+        
+        # Búsqueda por tema
+        elif "tema" in keyword.lower() or "topic" in keyword.lower():
+            search_type = "tema"
+            topic = keyword.replace("tema:", "").replace("topic:", "").strip()
+            search_filters.append(f"CONTAINS(LCASE(STR(?tematica)), LCASE(\"{topic}\"))")
+        
+        # Búsqueda por noticias verificadas
+        elif "noticias verificadas" in keyword.lower() or "verified news" in keyword.lower():
+            search_type = "verificadas"
+            search_filters.append("?estadoVerificacion = untitled-ontology-3:Verificada")
+        
+        # Búsqueda por fecha
+        elif "fecha" in keyword.lower() or "date" in keyword.lower():
+            search_type = "fecha"
+            date = keyword.replace("fecha:", "").replace("date:", "").strip()
+            search_filters.append(f"STR(?fecha) = \"{date}\"")
+        
+        # Búsqueda general
+        else:
+            search_filters = [
+                f"CONTAINS(LCASE(STR(?titulo)), LCASE(\"{keyword}\"))",
+                f"CONTAINS(LCASE(STR(?tematica)), LCASE(\"{keyword}\"))",
+                f"CONTAINS(LCASE(STR(?autor)), LCASE(\"{keyword}\"))"
+            ]
+        
+        # Construir la consulta SPARQL dinámicamente
+        query = f"""
         PREFIX untitled-ontology-3: <http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         
         SELECT DISTINCT ?noticia ?titulo ?fecha ?tematica ?autor ?estadoVerificacion ?enlaceDBpedia
-        WHERE {
+        WHERE {{
             ?noticia rdf:type ?tipoNoticia .
             ?tipoNoticia rdfs:subClassOf* untitled-ontology-3:Noticia .
 
-            OPTIONAL { ?noticia untitled-ontology-3:Título ?titulo . }
-            OPTIONAL { ?noticia untitled-ontology-3:Fecha_publicación ?fecha . }
-            OPTIONAL { ?noticia untitled-ontology-3:Temática ?tematica . }
-            OPTIONAL { ?noticia untitled-ontology-3:Autor ?autor . }
-            OPTIONAL { ?noticia untitled-ontology-3:EnlaceDBpedia ?enlaceDBpedia . }
+            OPTIONAL {{ ?noticia untitled-ontology-3:Título ?titulo . }}
+            OPTIONAL {{ ?noticia untitled-ontology-3:Fecha_publicación ?fecha . }}
+            OPTIONAL {{ ?noticia untitled-ontology-3:Temática ?tematica . }}
+            OPTIONAL {{ ?noticia untitled-ontology-3:Autor ?autor . }}
+            OPTIONAL {{ ?noticia untitled-ontology-3:EnlaceDBpedia ?enlaceDBpedia . }}
             
-            FILTER (
-                CONTAINS(LCASE(STR(?titulo)), "%s") || 
-                CONTAINS(LCASE(STR(?tematica)), "%s") || 
-                CONTAINS(LCASE(STR(?autor)), "%s")
-            )
+            {"FILTER (" + " || ".join(search_filters) + ")" if search_filters else ""}
             
-            OPTIONAL {
+            OPTIONAL {{
                 ?verificacion untitled-ontology-3:evalua ?noticia ;
                               untitled-ontology-3:Estado ?estadoVerificacion .
-            }
-        }
+            }}
+        }}
         ORDER BY DESC(?fecha)
-        """ % (keyword, keyword, keyword)
+        """
         
         try:
             query_results = g.query(query)
@@ -299,8 +330,9 @@ def search():
         except Exception as e:
             print(f"Error en la consulta SPARQL local: {e}")
         
-        # Consultar DBpedia
-        dbpedia_results = query_dbpedia(keyword, lang)
+        # Consultar DBpedia solo para búsquedas generales
+        if search_type == "general":
+            dbpedia_results = query_dbpedia(keyword, lang)
 
     return render_template(
         "search.html",
